@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "809537985133",
+    "firebase_url": "https://corona-project-7a5ee-default-rtdb.firebaseio.com",
+    "project_id": "corona-project-7a5ee",
+    "storage_bucket": "corona-project-7a5ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809537985133:android:ad6b28cf2ea04d88d8fd64",
+        "android_client_info": {
+          "package_name": "com.example.authapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809537985133-csf32inorcmb9u49h8n43s2pllsgj92r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_zfIiwOVF_8nBhyDzdV0d3HYBLfybIBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809537985133-csf32inorcmb9u49h8n43s2pllsgj92r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809537985133:android:a8378b8ef152630fd8fd64",
+        "android_client_info": {
+          "package_name": "com.example.database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809537985133-csf32inorcmb9u49h8n43s2pllsgj92r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_zfIiwOVF_8nBhyDzdV0d3HYBLfybIBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809537985133-csf32inorcmb9u49h8n43s2pllsgj92r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809537985133:android:0793c1d3832453fbd8fd64",
+        "android_client_info": {
+          "package_name": "com.example.staysafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809537985133-csf32inorcmb9u49h8n43s2pllsgj92r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_zfIiwOVF_8nBhyDzdV0d3HYBLfybIBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809537985133-csf32inorcmb9u49h8n43s2pllsgj92r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
