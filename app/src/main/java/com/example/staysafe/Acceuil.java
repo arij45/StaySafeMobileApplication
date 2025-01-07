@@ -11,6 +11,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +41,7 @@ public class Acceuil extends AppCompatActivity {
     Double a ;
     Double b ;
     String longitude,latitude ;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,7 @@ public class Acceuil extends AppCompatActivity {
         edlong=findViewById(R.id.edlong_acc);
         btnrefresh = findViewById(R.id.btnrefresh);
         btnmap =findViewById(R.id.btnmap_acc);
-        name=findViewById(R.id.add_name);
+       // name=findViewById(R.id.add_name);
 
 
 
@@ -59,9 +62,6 @@ public class Acceuil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Acceuil.this, " this is your location!", Toast.LENGTH_LONG).show();
-
-
-
                 FusedLocationProviderClient mClient =
                         LocationServices.getFusedLocationProviderClient(Acceuil.this);
 
@@ -235,13 +235,15 @@ public class Acceuil extends AppCompatActivity {
         btnmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Acceuil.this, "this is your location !", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(Acceuil.this,MapsActivity.class);
+
+                Toast.makeText(Acceuil.this, "This is your location!", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(Acceuil.this, MapsActivity.class);
                 i.putExtra("Longitude", longitude);
                 i.putExtra("Latitude", latitude);
                 startActivity(i);
             }
         });
+
 
 
     }}

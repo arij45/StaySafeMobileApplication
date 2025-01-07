@@ -36,5 +36,6 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(new Intent(MainActivity2.this,Acceuil.class));
             }
         });
+
     }
 }

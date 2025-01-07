@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
@@ -49,13 +51,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.banner:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-            case R.id.RegisterUser:
+        int id = v.getId();
+        if (id == R.id.banner) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
+          else if(id == R.id.RegisterUser){
                 registerUser();
-                break;
         }
 
     }
@@ -65,6 +66,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String password = editTextPassword.getText().toString().trim();
         String fullname = editTextFulname.getText().toString().trim();
         String age = editTextAge.getText().toString().trim();
+
+        // Validation checks
         if (fullname.isEmpty()) {
             editTextFulname.setError("Full name is required");
             editTextFulname.requestFocus();
@@ -77,11 +80,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         }
         if (email.isEmpty()) {
             editTextEmail.setError("Email is required");
-            editTextFulname.requestFocus();
+            editTextEmail.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("please provide valid email!");
+            editTextEmail.setError("Please provide a valid email!");
             editTextEmail.requestFocus();
             return;
         }
@@ -90,50 +93,49 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             editTextPassword.requestFocus();
             return;
         }
-        if (password.length() <6) {
-            editTextPassword.setError("Min password length should be 6 characters !");
+        if (password.length() < 6) {
+            editTextPassword.setError("Password must be at least 6 characters!");
             editTextPassword.requestFocus();
             return;
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email,password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // User object creation
                             User user = new User(fullname, age, email);
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegisterUser.this, "user has been registered successfully !", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(RegisterUser.this, "Failed to register! try again!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                        }else{
-                            Toast.makeText(RegisterUser.this, "Failed to register! try again!", Toast.LENGTH_LONG).show();
+                            FirebaseDatabase.getInstance()
+                                    .getReference("Users")
+                                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                                    .setValue(user)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(RegisterUser.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                // Log database error
+                                                String error = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                                                Log.e("FirebaseDatabase", "Error: " + error);
+                                                Toast.makeText(RegisterUser.this, "Failed to save user data: " + error, Toast.LENGTH_LONG).show();
+                                            }
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    });
+                        } else {
+                            // Log authentication error
+                            String error = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                            Log.e("FirebaseAuth", "Error: " + error);
+                            String apiKey = FirebaseApp.getInstance().getOptions().getApiKey();
+                            Toast.makeText(RegisterUser.this, "Failed to register! "+ error, Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
-
-
                         }
                     }
-
-
-
-
                 });
-
-
-
-
-
-
-
     }
 }
+
 
